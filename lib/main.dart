@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:stateful_app_course_02/api_provider.dart';
+import 'package:stateful_app_course_02/sample_api.dart';
 import 'package:stateful_app_course_02/screens/home/home.dart';
 import 'package:stateful_app_course_02/themes/defaultTheme.dart';
 
@@ -12,7 +14,10 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       theme: buildDefaultTheme(),
-      home: HomePage(),
+      home: ApiProvider(
+          api: SampleApi(),
+          child: const HomePage()
+      ),
     );
   }
 }
