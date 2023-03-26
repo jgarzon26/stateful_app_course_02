@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:stateful_app_course_02/api_provider.dart';
+import 'package:stateful_app_course_02/screens/home/widgets/date_time.dart';
 
 class HomePage extends StatefulWidget {
 
@@ -9,7 +11,7 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  String title = 'Tap the screen';
+  ValueKey _textKey = const ValueKey<String?>(null);
 
   @override
   Widget build(BuildContext context) {
@@ -17,16 +19,21 @@ class _HomePageState extends State<HomePage> {
       appBar: AppBar(
         centerTitle: true,
         title: Text(
-          title,
+          ApiProvider.of(context).api.dateAndTime ?? '',
           style: Theme.of(context).textTheme.headlineSmall,
         ),
       ),
       body: GestureDetector(
-        onTap: () {
+        onTap: () async {
+          final api = ApiProvider.of(context).api;
+          final currentDateTime = await api.getCurrentDateAndTime();
           setState(() {
-            title = DateTime.now().toString();
+            _textKey = ValueKey(currentDateTime);
           });
         },
+        child: SizedBox.expand(
+          child: DateTimeWidget(key: _textKey),
+        ),
       ),
     );
   }

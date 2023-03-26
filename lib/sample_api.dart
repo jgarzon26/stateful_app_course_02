@@ -3,7 +3,7 @@ class SampleApi{
 
   String? _dateAndTime;
 
-  String get dateAndTime => _dateAndTime!;
+  String? get dateAndTime => _dateAndTime;
 
   Future<String> getCurrentDateAndTime() async {
     return Future.delayed(
